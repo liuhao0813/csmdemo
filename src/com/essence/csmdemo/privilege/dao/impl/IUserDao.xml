@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.essence.csmdemo.privilege.dao.IUserDao" >
+  
+  <sql id="user_query_Base" >
+        select t.user_id     as userId,
+		       t.username    as username,
+		       t.password    as password,
+		       t.notes       as notes,
+		       t.status      as status,
+		       t.last_login  as lastLogin,
+		       t.created_by  as createdBy,
+		       t.craete_date as createDate,
+		       t.upated_by   as updatedBy,
+		       t.update_date as updateDate
+		  from tpl_user_t t
+  </sql>
+  
+  <sql id="user_query_argement" >
+  		<where>
+  			<if test="userId != null">
+  				and t.user_id = #{userId,jdbcType=INTEGER}
+  			</if>
+  			<if test="username != null">
+  				and t.username like '%'|| #{username,jdbcType=VARCHAR} || '%'
+  			</if>
+  			<if test="notes != null">
+  				and t.notes like '%'|| #{notes,jdbcType=VARCHAR} || '%'
+  			</if>
+  			<if test="status != null">
+  				and t.status = #{status,jdbcType=INTEGER}
+  			</if>
+  			<if test="lastLogin != null">
+  				and t.last_login = #{lastLogin,jdbcType=VARCHAR} || '%'
+  			</if>
+  		</where>
+  </sql>
+  
+  <select id="findUser" resultType="com.essence.csmdemo.privilege.vo.UserVO" parameterType="java.lang.Integer">
+	    <include refid="user_query_Base" />
+	    where t.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findPagedList" resultType="com.essence.csmdemo.privilege.vo.UserVO" >
+  		<include refid="user_query_Base" />
+  		<include refid="user_query_argement" />
+  </select>
+  
+  <delete id="delete" parameterType="com.essence.csmdemo.privilege.vo.UserVO" >
+	    delete from tpl_user_t
+	    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.essence.csmdemo.privilege.vo.UserVO" >
+  		insert into tpl_user_t
+		  (user_id,
+		   username,
+		   password,
+		   notes,
+		   status,
+		   last_login,
+		   created_by,
+		   craete_date,
+		   upated_by,
+		   update_date
+		  )
+		values
+		  (tpl_user_s.nextval,
+		   #{username,jdbcType=VARCHAR},
+		   #{password,jdbcType=VARCHAR},
+		   #{notes,jdbcType=VARCHAR},
+		   #{status,jdbcType=INTEGER},
+		   '',
+		   '',
+		   sysdate,
+		   '',
+		   sysdate
+		   )
+  </insert>
+   
+  <update id="update" parameterType="com.essence.csmdemo.privilege.vo.UserVO" >
+	   update tpl_user_t
+		  set username = #{username,jdbcType=VARCHAR},
+		      notes = #{notes,jdbcType=VARCHAR},
+		      status = #{status,jdbcType=INTEGER},
+		      upated_by = '',
+		      update_date = sysdate
+	    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

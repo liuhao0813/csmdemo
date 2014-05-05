@@ -1,0 +1,35 @@
+.tableForm {
+	border-collapse: collapse;
+}
+
+.tableForm th {
+	text-align: right;
+	border-bottom: 1px dotted #ccc;
+	padding: 5px;
+}
+
+.tableForm td {
+	text-align: left;
+	border-bottom: 1px dotted #ccc;
+	padding: 5px;
+}
+
+.logo {
+	background: url('images/sypro.png') no-repeat;
+}
+
+.info {
+	background: #FFFEE6;
+	color: #8F5700;
+	padding: 12px;
+}
+
+.tip {
+	width: 24px;
+	height: 16px;
+	float: left;
+}
+
+img {
+	cursor: pointer;
+}
