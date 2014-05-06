@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Basic CRUD Application - jQuery EasyUI CRUD Demo</title>
+    <link rel="stylesheet" type="text/css" href="easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="easyUI/themes/demo.css">
+    <script type="text/javascript" src="easyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="common.js"></script>
+    <script type="text/javascript" src="easyUI/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <h2>Basic CRUD Application</h2>
+    <p>Click the buttons on datagrid toolbar to do crud actions.</p>
+    <div class="easyui-panel" title="查询条件" style="width:700px">
+        <div style="padding:10px 10px 20px 10px">
+        <form id="ff" method="post">
+            <table cellpadding="5">
+                <tr>
+                    <td>文档ID:</td>
+                    <td><input class="textbox" type="text" name="docId"></input></td>
+                    <td>标题:</td>
+                    <td><input class="textbox" type="text" name="title"></input></td>
+                </tr>
+                <tr>
+                    <td>文档类型:</td>
+                    <td><input class="textbox" type="text" name="docType"></input></td>
+                    <td>是否需要权限:</td>
+                    <td><select class="easyui-combobox" name="needPermission"><option value="">----------</option><option value="1">需要权限</option><option value="0">不需要权限</option></select></td>
+                </tr>
+                <tr>
+                    <td>创建时间:</td>
+                    <td>
+                    	<input id="createDate" type="text" name="createDate"></input>
+                    </td>
+                    <td>保存阅读记录:</td>
+                    <td>
+                        <select class="easyui-combobox" name="logReadHis"><option value="">----------</option><option value="0">不保存阅读记录</option><option value="1">保存阅读记录</option></select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div style="text-align:center;padding:15px">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Search</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Reset</a>
+        </div>
+       </div>
+    </div>
+
+    <table id="dg" title="结果列表" class="easyui-datagrid" style="width:700px;height:250px"
+    		url="services/csm/doc/list" 
+            toolbar="#toolbar" pagination="true"
+            rownumbers="true" fitColumns="true" singleSelect="true">
+         <!--    
+            url="services/csm/doc/list" -->
+        <thead>
+            <tr>
+               <th field="docId" width="50">文档ID</th>
+                <th field="title" width="50">标题</th>
+                <th field="docType" width="50">文档类型</th>
+                <th field="needPermission" width="50">是否需要权限</th>
+                <th field="createDate" width="50">创建时间</th>
+                <th field="logReadHis" width="50">保存阅读记录</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除</a>
+    </div>
+    
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">文档信息</div>
+        <form id="fm" method="post" novalidate>
+           <div class="fitem">
+                <label>文档ID</label>
+                <input name="docId" class="easyui-validatebox" required="true">
+           </div>
+            <div class="fitem">
+               <label>标题</label>
+                <input name="title" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>文档类型</label>
+               <input name="docType" class="easyui-validatebox" required="true">
+            </div>
+           <div class="fitem">
+                <label>是否需要权限</label>
+                <input name="needPermission" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>创建时间</label>
+                <input id='createDate2' name="createDate" >
+            </div>
+            <div class="fitem">
+                <label>保存阅读记录</label>
+                <input name="logReadHis">
+            </div>
+        </form>
+    </div>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+    </div>
+    <script type="text/javascript">
+  		/* $(function(){
+  			 submitForm();
+  	    });
+ */
+ 
+		$('#createDate').datebox({
+			    formatter: function(date){ 
+			    	return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+			    }
+		});
+		 $('#createDate2').datebox({
+			    formatter: function(date){ 
+			    	return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+			    }
+		});
+        var url;
+        function newUser(){
+            $('#dlg').dialog('open').dialog('setTitle','添加文档');
+            $('#fm').form('clear');
+            url = 'services/csm/doc/insert';
+        }
+        function editUser(){
+            var row = $('#dg').datagrid('getSelected');
+            
+            if (row){
+                $('#dlg').dialog('open').dialog('setTitle','编辑文档');
+                $('#fm').form('load',row);
+                url = 'services/csm/doc/udpate';
+            }
+       }
+        function saveUser(){
+        	
+        	var param = JSON.stringify($('#fm').serializeObjectToJson());
+        	
+    		$.ajax({
+				type : "POST",
+				url : url,
+				data : param,
+				contentType:"application/json",
+				dataType:"text",
+				success : function(msg) {
+					alert("Data Saved: " + msg);
+					$('#dlg').dialog('close');        // close the dialog
+					var param = JSON.stringify($('#ff').serializeObjectToJson());
+		    	    	$.ajax({
+			   				type : "POST",
+			   				url : 'services/csm/doc/list',
+			   				data : param,
+			   				contentType:"application/json",
+			   				dataType:"text",
+			   				success : function(msg) {
+			   		            $('#dg').datagrid({data:eval(msg)});    // reload the user data
+			   				}
+						});
+				}
+			});
+        }
+        function destroyUser(){
+           var row = $('#dg').datagrid('getSelected');
+            if (row){
+               $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+                   if (r){
+                	   $.ajax({
+	           				type : "POST",
+	           				url : 'services/csm/doc/del/'+row.docId,
+	           				data : null,
+	           				contentType:"application/json",
+	           				dataType:"text",
+	           				success : function(msg) {
+	           					alert("Data Saved: " + msg);
+	           		            $('#dg').datagrid('reload');    // reload the user data
+	           				}
+           				});
+                       /* $.post('services/csm/doc/del/'+row.docId,null,function(result){
+	                    	   alert("Data Saved: " + result);
+		       		            $('#dg').datagrid('reload');    // reload the user data
+	                       }); */
+                    }
+               });
+            }else{
+            	alert("请选择需要删除的记录！");
+            }
+       }
+       function submitForm(){
+    	    var param = JSON.stringify($('#ff').serializeObjectToJson());
+    	    $.ajax({
+	   				type : "POST",
+	   				url : 'services/csm/doc/list',
+	   				data : param,
+	   				contentType:"application/json",
+	   				dataType:"text",
+	   				success : function(msg) {
+	   		            $('#dg').datagrid({data:eval(msg)});    // reload the user data
+	   				}
+				});
+       }
+
+       function clearForm(){
+            $('#ff').form('clear');
+       }
+
+    </script>
+    <style type="text/css">
+       #fm{
+            margin:0;
+           padding:10px 30px;
+        }
+        .ftitle{
+            font-size:14px;
+           font-weight:bold;
+            padding:5px 0;
+            margin-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .fitem{
+            margin-bottom:5px;
+        }
+        .fitem label{
+            display:inline-block;
+            width:80px;
+        }
+    </style>
+</body>
+</html>
+
