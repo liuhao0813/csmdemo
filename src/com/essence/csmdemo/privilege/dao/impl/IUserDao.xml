@@ -46,6 +46,10 @@
   		<include refid="user_query_argement" />
   </select>
   
+  <select id="findPagedList2" resultType="com.essence.csmdemo.privilege.vo.UserVO" >
+  		<include refid="user_query_Base" />
+  </select>
+  
   <delete id="delete" parameterType="com.essence.csmdemo.privilege.vo.UserVO" >
 	    delete from tpl_user_t
 	    where user_id = #{userId,jdbcType=INTEGER}

@@ -14,7 +14,7 @@
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-	<import resource="classpath:config/services.xml" />
+	<import resource="classpath:services.xml" />
 	
 	<context:annotation-config/>
 	<context:component-scan base-package="com.essence.csmdemo.**.services.impl"/>
@@ -57,5 +57,9 @@
     </bean>
     
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+    
+    <bean id="privilegeInterceptor" class="com.essence.csmdemo.core.interceptor.PrivilegeInterceptor">
+    	<constructor-arg value="receive"/> 
+    </bean>
 	
 </beans>

@@ -1,5 +1,7 @@
 package com.essence.csmdemo.privilege.test;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,5 +135,13 @@ public class PrivliegeTest {
 		UserVO userVO =new UserVO();
 		userVO = userServices.findUser(2);
 		System.out.println(userVO.getUsername());
+	}
+	
+	@Test
+	public void testFindUser2() {
+		List<UserVO> users = userServices.findPagedList2();
+		for(UserVO user:users){
+			System.out.println("-------------------------------------------------"+user.getUsername());
+		}
 	}
 }

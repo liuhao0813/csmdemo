@@ -7,8 +7,8 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>src/config/services.xml</config>
 		<config>src/spring-context.xml</config>
+		<config>src/services.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

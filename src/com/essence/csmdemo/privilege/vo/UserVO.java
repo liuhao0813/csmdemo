@@ -25,7 +25,7 @@ public class UserVO extends BaseVO{
 	/**
 	 * 用户描述
 	 */
-	private String Notes;
+	private String notes;
 	/**
 	 * 用户状态
 	 */
@@ -33,7 +33,7 @@ public class UserVO extends BaseVO{
 	/**
 	 * 最后一次登录时间
 	 */
-    private String last_login;
+    private String lastLogin;
     
     /**
      * 用户对应的角色信息
@@ -64,23 +64,12 @@ public class UserVO extends BaseVO{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getNotes() {
-		return Notes;
-	}
-	public void setNotes(String notes) {
-		Notes = notes;
-	}
+	
 	public Integer getStatus() {
 		return status;
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-	public String getLast_login() {
-		return last_login;
-	}
-	public void setLast_login(String last_login) {
-		this.last_login = last_login;
 	}
 	public List<RoleVO> getListRoles() {
 		return listRoles;
@@ -93,6 +82,18 @@ public class UserVO extends BaseVO{
 	}
 	public void setListMenus(List<MenuVO> listMenus) {
 		this.listMenus = listMenus;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	public String getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
 	}
     
     

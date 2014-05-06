@@ -1,5 +1,7 @@
 package com.essence.csmdemo.privilege.services.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +35,10 @@ public class UserServicesImpl implements IUserServices {
 
 	public UserVO findUser(Integer userId) {
 		return userDao.findUser(userId);
+	}
+
+	public List<UserVO> findPagedList2() {
+		return userDao.findPagedList2();
 	}
 
 }

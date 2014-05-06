@@ -1,5 +1,7 @@
 package com.essence.csmdemo.privilege.services;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -38,5 +40,10 @@ public interface IUserServices {
 	@GET
 	@Path("/single/{userId}")
 	public UserVO findUser(@PathParam("userId") Integer userId);
+	
+	@POST
+	@Path("/list")
+	public List<UserVO> findPagedList2();
+	
 
 }

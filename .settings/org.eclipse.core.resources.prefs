@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
-encoding//WebContent/index.htm=UTF-8
+encoding//WebContent/index.html=UTF-8
 encoding//src/com/essence/csmdemo/common/pagin/HandlerConstants.java=UTF-8
 encoding//src/com/essence/csmdemo/core/dialect/Dialect.java=UTF-8
 encoding//src/com/essence/csmdemo/core/dialect/ReflectHelper.java=UTF-8

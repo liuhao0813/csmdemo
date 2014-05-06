@@ -18,25 +18,21 @@
         <form id="ff" method="post">
             <table cellpadding="5">
                 <tr>
-                    <td>文档ID:</td>
-                    <td><input class="textbox" type="text" name="docId"></input></td>
-                    <td>标题:</td>
-                    <td><input class="textbox" type="text" name="title"></input></td>
+                    <td>用户名:</td>
+                    <td><input class="textbox" type="text" name="username"></input></td>
+                    <td>密码:</td>
+                    <td><input class="textbox" type="text" name="password"></input></td>
                 </tr>
                 <tr>
-                    <td>文档类型:</td>
-                    <td><input class="textbox" type="text" name="docType"></input></td>
-                    <td>是否需要权限:</td>
-                    <td><select class="easyui-combobox" name="needPermission"><option value="">----------</option><option value="1">需要权限</option><option value="0">不需要权限</option></select></td>
+                    <td>描述:</td>
+                    <td><input class="textbox" type="text" name="notes"></input></td>
+                    <td>状态:</td>
+                    <td><select class="easyui-combobox" name="status"><option value="">----------</option><option value="1">需要权限</option><option value="0">不需要权限</option></select></td>
                 </tr>
                 <tr>
-                    <td>创建时间:</td>
+                    <td>最后一次登陆时间:</td>
                     <td>
-                    	<input id="createDate" type="text" name="createDate"></input>
-                    </td>
-                    <td>保存阅读记录:</td>
-                    <td>
-                        <select class="easyui-combobox" name="logReadHis"><option value="">----------</option><option value="0">不保存阅读记录</option><option value="1">保存阅读记录</option></select>
+                    	<input id="createDate" type="text" name="lastLogin"></input>
                     </td>
                 </tr>
             </table>
@@ -49,19 +45,17 @@
     </div>
 
     <table id="dg" title="结果列表" class="easyui-datagrid" style="width:700px;height:250px"
-    		url="services/csm/doc/list" 
             toolbar="#toolbar" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
          <!--    
             url="services/csm/doc/list" -->
         <thead>
             <tr>
-               <th field="docId" width="50">文档ID</th>
-                <th field="title" width="50">标题</th>
-                <th field="docType" width="50">文档类型</th>
-                <th field="needPermission" width="50">是否需要权限</th>
-                <th field="createDate" width="50">创建时间</th>
-                <th field="logReadHis" width="50">保存阅读记录</th>
+               <th field="username" width="50">用户名</th>
+                <th field="password" width="50">密码</th>
+                <th field="notes" width="50">描述</th>
+                <th field="status" width="50">状态</th>
+                <th field="lastLogin" width="150">最后一次登陆时间</th>
             </tr>
         </thead>
     </table>
@@ -76,28 +70,24 @@
         <div class="ftitle">文档信息</div>
         <form id="fm" method="post" novalidate>
            <div class="fitem">
-                <label>文档ID</label>
-                <input name="docId" class="easyui-validatebox" required="true">
+                <label>用户名</label>
+                <input name="username" class="easyui-validatebox" required="true">
            </div>
             <div class="fitem">
-               <label>标题</label>
-                <input name="title" class="easyui-validatebox" required="true">
+               <label>密码</label>
+                <input name="password" class="easyui-validatebox" required="true">
             </div>
             <div class="fitem">
-                <label>文档类型</label>
-               <input name="docType" class="easyui-validatebox" required="true">
+                <label>描述</label>
+               <input name="notes" class="easyui-validatebox" required="true">
             </div>
            <div class="fitem">
-                <label>是否需要权限</label>
-                <input name="needPermission" class="easyui-validatebox" required="true">
+                <label>状态</label>
+                <input name="status" class="easyui-validatebox" required="true">
             </div>
             <div class="fitem">
-                <label>创建时间</label>
-                <input id='createDate2' name="createDate" >
-            </div>
-            <div class="fitem">
-                <label>保存阅读记录</label>
-                <input name="logReadHis">
+                <label>最后一次登陆时间</label>
+                <input id='createDate2' name="lastLogin" >
             </div>
         </form>
     </div>
@@ -125,7 +115,7 @@
         function newUser(){
             $('#dlg').dialog('open').dialog('setTitle','添加文档');
             $('#fm').form('clear');
-            url = 'services/csm/doc/insert';
+            url = 'services/csm/user/insert';
         }
         function editUser(){
             var row = $('#dg').datagrid('getSelected');
@@ -133,7 +123,7 @@
             if (row){
                 $('#dlg').dialog('open').dialog('setTitle','编辑文档');
                 $('#fm').form('load',row);
-                url = 'services/csm/doc/udpate';
+                url = 'services/csm/user/udpate';
             }
        }
         function saveUser(){
@@ -170,7 +160,7 @@
                    if (r){
                 	   $.ajax({
 	           				type : "POST",
-	           				url : 'services/csm/doc/del/'+row.docId,
+	           				url : 'services/csm/user/del/'+row.docId,
 	           				data : null,
 	           				contentType:"application/json",
 	           				dataType:"text",
@@ -193,7 +183,7 @@
     	    var param = JSON.stringify($('#ff').serializeObjectToJson());
     	    $.ajax({
 	   				type : "POST",
-	   				url : 'services/csm/doc/list',
+	   				url : 'services/csm/user/list',
 	   				data : param,
 	   				contentType:"application/json",
 	   				dataType:"text",
