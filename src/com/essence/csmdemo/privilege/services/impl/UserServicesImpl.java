@@ -7,6 +7,7 @@ import javax.inject.Named;
 
 import com.essence.csmdemo.common.pagin.HandlerResult;
 import com.essence.csmdemo.common.pagin.PageVO;
+import com.essence.csmdemo.privilege.aop.OperationSource;
 import com.essence.csmdemo.privilege.dao.IUserDao;
 import com.essence.csmdemo.privilege.services.IUserServices;
 import com.essence.csmdemo.privilege.vo.UserVO;
@@ -36,7 +37,7 @@ public class UserServicesImpl implements IUserServices {
 	public UserVO findUser(Integer userId) {
 		return userDao.findUser(userId);
 	}
-
+	
 	public List<UserVO> findPagedList2() {
 		return userDao.findPagedList2();
 	}

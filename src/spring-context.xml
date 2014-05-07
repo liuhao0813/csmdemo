@@ -58,8 +58,22 @@
     
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
     
-    <bean id="privilegeInterceptor" class="com.essence.csmdemo.core.interceptor.PrivilegeInterceptor">
+    <bean id="privilegeInterceptor" class="com.essence.csmdemo.core.interceptor.CxfPrivilegeInterceptor">
     	<constructor-arg value="receive"/> 
+    </bean>
+    
+    <bean id="springAOPInterceptor" class="com.essence.csmdemo.core.interceptor.SpringAOPInterceptor"/>
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+    	<property name="beanNames">
+    		<list>
+    			<value>*ServicesImpl</value>
+    		</list>
+    	</property>
+    	<property name="interceptorNames">
+    		<list>
+    			<value>springAOPInterceptor</value>
+    		</list>
+    	</property>
     </bean>
 	
 </beans>

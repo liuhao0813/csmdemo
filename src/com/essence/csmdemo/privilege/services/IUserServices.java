@@ -13,6 +13,7 @@ import javax.ws.rs.QueryParam;
 
 import com.essence.csmdemo.common.pagin.HandlerResult;
 import com.essence.csmdemo.common.pagin.PageVO;
+import com.essence.csmdemo.privilege.aop.OperationSource;
 import com.essence.csmdemo.privilege.vo.UserVO;
 
 
@@ -43,6 +44,7 @@ public interface IUserServices {
 	
 	@POST
 	@Path("/list")
+	@OperationSource(code="user",operation="query")
 	public List<UserVO> findPagedList2();
 	
 

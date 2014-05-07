@@ -10,9 +10,9 @@ import org.apache.cxf.phase.AbstractPhaseInterceptor;
  * @author
  *
  */
-public class PrivilegeInterceptor extends AbstractPhaseInterceptor<Message>{
+public class CxfPrivilegeInterceptor extends AbstractPhaseInterceptor<Message>{
 
-	public PrivilegeInterceptor(String phase) {
+	public CxfPrivilegeInterceptor(String phase) {
 		super(phase);
 	}
 
