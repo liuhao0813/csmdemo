@@ -9,3 +9,5 @@ csmdemo
           	 参见servlet PrivilegeSyncServlet.java
          
 2014-05-08  数据库脚本整理
+
+2014-11-01 
