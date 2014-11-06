@@ -129,7 +129,7 @@
         function saveUser(){
         	
         	var param = JSON.stringify($('#fm').serializeObjectToJson());
-        	
+        	alert("hahah");
     		$.ajax({
 				type : "POST",
 				url : url,
@@ -148,9 +148,15 @@
 			   				dataType:"text",
 			   				success : function(msg) {
 			   		            $('#dg').datagrid({data:eval(msg)});    // reload the user data
+			   				},
+			   				error:function(){
+			   					alert("hahahahhahaerror  ");
 			   				}
 						});
-				}
+				},
+    			error:function(){
+    				alert("出错了，请联系IT管理员");
+    			}
 			});
         }
         function destroyUser(){
@@ -167,7 +173,10 @@
 	           				success : function(msg) {
 	           					alert("Data Saved: " + msg);
 	           		            $('#dg').datagrid('reload');    // reload the user data
-	           				}
+	           				},
+	           				error: function(){
+	            				alert("出错了，请联系IT管理员");
+	            			}
            				});
                        /* $.post('services/csm/doc/del/'+row.docId,null,function(result){
 	                    	   alert("Data Saved: " + result);
@@ -189,7 +198,10 @@
 	   				dataType:"text",
 	   				success : function(msg) {
 	   		            $('#dg').datagrid({data:eval(msg)});    // reload the user data
-	   				}
+	   				},
+	   				error: function(){
+	    				alert("出错了，请联系IT管理员");
+	    			}
 				});
        }
 

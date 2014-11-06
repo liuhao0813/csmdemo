@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/index.html=UTF-8
-encoding//src/com/essence/csmdemo/common/pagin/HandlerConstants.java=UTF-8
-encoding//src/com/essence/csmdemo/core/dialect/Dialect.java=UTF-8
-encoding//src/com/essence/csmdemo/core/dialect/ReflectHelper.java=UTF-8
-encoding//src/com/essence/csmdemo/core/interceptor/PaginationInterceptor.java=UTF-8
+encoding//src/cn/erpreport/it/common/pager/HandlerConstants.java=UTF-8
+encoding//src/cn/erpreport/it/core/dialect/Dialect.java=UTF-8
+encoding//src/cn/erpreport/it/core/dialect/ReflectHelper.java=UTF-8
+encoding//src/cn/erpreport/it/core/interceptor/PaginationInterceptor.java=UTF-8
 encoding/<project>=UTF-8

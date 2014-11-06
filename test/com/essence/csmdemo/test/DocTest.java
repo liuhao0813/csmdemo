@@ -7,8 +7,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.essence.csmdemo.services.ITbDocService;
-import com.essence.csmdemo.vo.TbDocVO;
+import cn.erpreport.it.services.ITbDocService;
+import cn.erpreport.it.vo.TbDocVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-context.xml")

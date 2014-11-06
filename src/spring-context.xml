@@ -20,12 +20,19 @@
 	<context:component-scan base-package="com.essence.csmdemo.**.services.impl"/>
 	
 	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
         <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@(DESCRIPTION = (ADDRESS_LIST =(ADDRESS = (PROTOCOL = TCP)(HOST = 10.7.81.21)(PORT = 1522)))(CONNECT_DATA =(SERVICE_NAME = eptest)))"/>
-        <property name="username" value="essence"/>
+        <property name="username" value="root"/>
         <property name="password" value="essence123"/>
-    </bean>
+    </bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/essence"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean> 
 	
 	<!-- 通过JNDI配置数据源 -->
 	<!-- 
@@ -47,7 +54,7 @@
         <property name="dataSource" ref="dataSource" />
     	<property name="mapperLocations" value="classpath*:com/essence/csmdemo/**/dao/impl/*.xml"/>
     	<property name="plugins">
-			<bean class="com.essence.csmdemo.core.interceptor.PaginationInterceptor"/>
+			<bean class="cn.erpreport.it.core.interceptor.PaginationInterceptor"/>
     	</property>
     </bean>
    
@@ -58,11 +65,11 @@
     
     <bean id="jsonProvider" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
     
-    <bean id="privilegeInterceptor" class="com.essence.csmdemo.core.interceptor.CxfPrivilegeInterceptor">
+    <bean id="privilegeInterceptor" class="cn.erpreport.it.core.interceptor.CxfPrivilegeInterceptor">
     	<constructor-arg value="receive"/> 
     </bean>
     
-    <bean id="springAOPInterceptor" class="com.essence.csmdemo.core.interceptor.SpringAOPInterceptor"/>
+    <bean id="springAOPInterceptor" class="cn.erpreport.it.core.interceptor.SpringAOPInterceptor"/>
     <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
     	<property name="beanNames">
     		<list>
